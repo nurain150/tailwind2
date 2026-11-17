@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tailwind CSS Positioning & Display Playground</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen p-6 font-sans">
+  <div class="max-w-7xl mx-auto space-y-6 relative">
+
+    <header class="border-b border-slate-700 pb-4">
+      <h1 class="text-3xl font-bold text-fuchsia-400">Tailwind Display & Positioning Master</h1>
+      <p class="text-slate-400">Master how elements flow, float, overlap, and pin to the screen.</p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <!-- Controls Sidebar -->
+      <aside class="space-y-6">
+        
+        <!-- 1. Display Controls -->
+        <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 space-y-4">
+          <h2 class="text-lg font-bold text-indigo-400 border-b border-slate-700 pb-2">1. Display Types</h2>
+          <div>
+            <label class="block text-xs uppercase text-slate-400 mb-1">Target Element Display</label>
+            <select id="ctrl-display" class="w-full bg-slate-700 rounded px-3 py-2 text-sm">
+              <option value="inline">inline (Flows with text, ignores width/height)</option>
+              <option value="inline-block" selected>inline-block (Flows, respects width/padding)</option>
+              <option value="block">block (Forces new line, 100% width)</option>
+              <option value="hidden">hidden (Erases from page)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 2. Positioning & Z-Index Controls -->
+        <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 space-y-4">
+          <h2 class="text-lg font-bold text-rose-400 border-b border-slate-700 pb-2">2. Anchor, Pin & Z-Index</h2>
+          
+          <div>
+            <label class="block text-xs uppercase text-slate-400 mb-1">Red Badge Position (`absolute`)</label>
+            <select id="ctrl-pos-red" class="w-full bg-slate-700 rounded px-3 py-2 text-sm">
+              <option value="-top-3 -right-3">-top-3 -right-3 (Floats outside corner)</option>
+              <option value="top-0 right-0">top-0 right-0 (Flush inside corner)</option>
+              <option value="bottom-2 right-2">bottom-2 right-2 (Bottom right)</option>
+              <option value="inset-0">inset-0 (Stretches across entire anchor)</option>
+            </select>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs uppercase text-slate-400 mb-1">Red Z-Index</label>
+              <select id="ctrl-z-red" class="w-full bg-slate-700 rounded px-3 py-2 text-sm text-rose-300">
+                <option value="z-10">z-10</option>
+                <option value="z-30">z-30</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs uppercase text-slate-400 mb-1">Teal Z-Index</label>
+              <select id="ctrl-z-teal" class="w-full bg-slate-700 rounded px-3 py-2 text-sm text-teal-300">
+                <option value="z-20">z-20</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Scroll Pinning Controls -->
+        <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 space-y-4">
+          <h2 class="text-lg font-bold text-amber-400 border-b border-slate-700 pb-2">3. Sticky vs Fixed</h2>
+          <div>
+            <label class="block text-xs uppercase text-slate-400 mb-1">Yellow Banner Behavior</label>
+            <select id="ctrl-pin" class="w-full bg-slate-700 rounded px-3 py-2 text-sm font-bold text-amber-400">
+              <option value="relative">relative (Scrolls away normally)</option>
+              <option value="sticky top-0">sticky top-0 (Sticks inside its parent container)</option>
+              <option value="fixed top-0 left-0 w-full z-50">fixed top-0 (Breaks out, pins to browser window!)</option>
+            </select>
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- Visual Canvas Output -->
+      <main class="lg:col-span-2 space-y-6">
+        
+        <!-- Canvas 1: Display -->
+        <div class="bg-slate-800 p-6 rounded-xl border-2 border-dashed border-indigo-500/50">
+          <h3 class="text-sm uppercase text-slate-400 font-bold mb-4">Demo 1: Display Types</h3>
+          <p class="text-slate-300 leading-relaxed bg-slate-900 p-4 rounded-lg">
+            This paragraph demonstrates how text flows around elements. Here is a 
+            <span id="target-display" class="inline-block bg-indigo-500 text-white font-bold px-4 py-2 mx-1 rounded shadow-lg transition-all duration-300">Target Element</span> 
+            sitting right in the middle of a sentence. Change its display type to see how it forces the text to react. Notice how inline ignores the padding/width, block breaks the line, and hidden makes the sentence collapse.
+          </p>
+        </div>
+
+        <!-- Canvas 2: Positioning & Z-Index -->
+        <div class="bg-slate-800 p-6 rounded-xl border-2 border-dashed border-rose-500/50 flex flex-col items-center justify-center min-h-[300px]">
+          <h3 class="text-sm uppercase text-slate-400 font-bold mb-8 w-full">Demo 2: Anchor (`relative`) & Pins (`absolute`)</h3>
+          
+          <!-- The Anchor -->
+          <div class="relative bg-slate-600 w-48 h-48 rounded-2xl shadow-xl flex items-center justify-center border-2 border-slate-500">
+            <span class="text-slate-300 font-mono text-sm text-center">Parent Anchor<br/>`relative`</span>
+            
+            <!-- Red Badge -->
+            <div id="target-pos-red" class="absolute -top-3 -right-3 z-10 w-16 h-16 bg-rose-500 rounded-lg shadow-lg flex items-center justify-center font-bold text-white transition-all duration-300 border-2 border-slate-900">
+              Red
+            </div>
+
+            <!-- Teal Badge (Static position, fixed Z-Index of 20) -->
+            <div id="target-z-teal" class="absolute -top-3 right-8 z-20 w-16 h-16 bg-teal-500 rounded-lg shadow-lg flex items-center justify-center font-bold text-white transition-all duration-300 border-2 border-slate-900">
+              Teal
+            </div>
+          </div>
+          <p class="text-xs text-slate-400 mt-8 text-center max-w-md">Toggle the Red Z-index between 10 and 30 to see it slide under or over the Teal badge (which is fixed at z-20). Change coordinates to see it float around the relative anchor.</p>
+        </div>
+
+        <!-- Canvas 3: Sticky vs Fixed -->
+        <div class="bg-slate-800 p-6 rounded-xl border-2 border-dashed border-amber-500/50">
+          <h3 class="text-sm uppercase text-slate-400 font-bold mb-4">Demo 3: Scroll Pinning (Scroll the box below)</h3>
+          
+          <!-- Scrollable Container -->
+          <div class="h-48 overflow-y-auto bg-slate-900 rounded-lg border border-slate-700 relative shadow-inner">
+            
+            <div class="p-4 text-slate-400">Scroll down 👇</div>
+            
+            <!-- The Pin Target -->
+            <div id="target-pin" class="relative bg-amber-500 text-amber-950 font-bold p-3 shadow-lg transition-all duration-300 flex justify-between">
+              <span>Yellow Banner</span>
+              <span id="pin-label" class="font-mono text-xs bg-amber-950 text-amber-400 px-2 py-1 rounded">relative</span>
+            </div>
+            
+            <div class="p-4 text-slate-500 space-y-4">
+              <p>Keep scrolling...</p>
+              <p>When set to `sticky`, the banner will hit the top of this dark box and lock in place.</p>
+              <p>When set to `fixed`, it completely breaks out of this box and locks to your browser window!</p>
+              <p>More content to force scroll...</p>
+              <p>Almost at the bottom...</p>
+              <p>End of scroll container.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // 1. Display Logic
+    const ctrlDisplay = document.getElementById('ctrl-display');
+    const targetDisplay = document.getElementById('target-display');
+    
+    ctrlDisplay.addEventListener('change', (e) => {
+      // Remove all possible display classes, then add the selected one
+      targetDisplay.classList.remove('inline', 'inline-block', 'block', 'hidden');
+      targetDisplay.classList.add(e.target.value);
+    });
+
+    // 2. Position & Z-Index Logic
+    const ctrlPosRed = document.getElementById('ctrl-pos-red');
+    const ctrlZRed = document.getElementById('ctrl-z-red');
+    const ctrlZTeal = document.getElementById('ctrl-z-teal');
+    const targetPosRed = document.getElementById('target-pos-red');
+    const targetZTeal = document.getElementById('target-z-teal');
+
+    function updateRedBadge() {
+      // Reset position classes
+      targetPosRed.classList.remove('-top-3', '-right-3', 'top-0', 'right-0', 'bottom-2', 'right-2', 'inset-0');
+      // Reset z-index
+      targetPosRed.classList.remove('z-10', 'z-30');
+      
+      // Add new classes
+      const posClasses = ctrlPosRed.value.split(' ');
+      targetPosRed.classList.add(...posClasses, ctrlZRed.value);
+    }
+
+    ctrlPosRed.addEventListener('change', updateRedBadge);
+    ctrlZRed.addEventListener('change', updateRedBadge);
+
+    // 3. Sticky vs Fixed Logic
+    const ctrlPin = document.getElementById('ctrl-pin');
+    const targetPin = document.getElementById('target-pin');
+    const pinLabel = document.getElementById('pin-label');
+
+    ctrlPin.addEventListener('change', (e) => {
+      // Remove all possible pinning classes
+      targetPin.classList.remove('relative', 'sticky', 'top-0', 'fixed', 'left-0', 'w-full', 'z-50');
+      
+      // Add new ones
+      const pinClasses = e.target.value.split(' ');
+      targetPin.classList.add(...pinClasses);
+      
+      // Update the label text for clarity
+      pinLabel.textContent = e.target.value;
+    });
+  </script>
+</body>
+</html>

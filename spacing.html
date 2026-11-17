@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tailwind Spacing Slider & Button Playground</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen p-6 font-sans select-none">
+  <div class="max-w-7xl mx-auto space-y-8">
+
+    <!-- Header -->
+    <header class="border-b border-slate-800 pb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div>
+        <h1 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
+          Spacing Visual Control Deck
+        </h1>
+        <p class="text-slate-400 text-sm mt-1">
+          Slide, click, and watch the live visual canvas and code update instantly. No typing required.
+        </p>
+      </div>
+      <div class="flex gap-2">
+        <button onclick="switchTab('padding')" id="tab-padding" class="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 text-white shadow-lg transition">1. Padding</button>
+        <button onclick="switchTab('centering')" id="tab-centering" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-400 hover:text-white transition">2. Centering (`mx-auto`)</button>
+        <button onclick="switchTab('stack')" id="tab-stack" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-400 hover:text-white transition">3. Stack (`space-y`)</button>
+        <button onclick="switchTab('negative')" id="tab-negative" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-400 hover:text-white transition">4. Negative Margin</button>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+      <!-- Left Column: Interactive Sliders & Buttons (5 Cols) -->
+      <aside class="lg:col-span-5 space-y-6 bg-slate-900/90 p-6 rounded-2xl border border-slate-800 shadow-2xl">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <h2 id="control-title" class="text-lg font-bold text-amber-400 flex items-center gap-2">
+            <span>🎚️</span> Padding Controls
+          </h2>
+          <span id="active-val-badge" class="text-xs font-mono bg-slate-800 text-emerald-400 px-2.5 py-1 rounded-full">p-6 (24px)</span>
+        </div>
+
+        <!-- Dynamic Control Panels -->
+        <div id="panel-padding" class="space-y-6 control-panel">
+          <div>
+            <div class="flex justify-between text-xs font-bold text-slate-400 mb-2">
+              <span>Padding Scale (Multiplier $\times 4\text{px}$)</span>
+              <span id="pad-label" class="text-emerald-400 font-mono">p-6 (24px)</span>
+            </div>
+            <!-- Range Slider -->
+            <input type="range" id="pad-slider" min="0" max="16" step="2" value="6" class="w-full accent-emerald-500 cursor-pointer bg-slate-800 h-2 rounded-lg">
+          </div>
+          <!-- Quick Click Buttons -->
+          <div class="space-y-2">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Quick Preset Buttons</span>
+            <div class="grid grid-cols-5 gap-2">
+              <button onclick="setPadding(0)" class="bg-slate-800 hover:bg-slate-700 py-2 rounded-lg text-xs font-mono text-emerald-300 border border-slate-700">p-0</button>
+              <button onclick="setPadding(2)" class="bg-slate-800 hover:bg-slate-700 py-2 rounded-lg text-xs font-mono text-emerald-300 border border-slate-700">p-2</button>
+              <button onclick="setPadding(4)" class="bg-slate-800 hover:bg-slate-700 py-2 rounded-lg text-xs font-mono text-emerald-300 border border-slate-700">p-4</button>
+              <button onclick="setPadding(8)" class="bg-slate-800 hover:bg-slate-700 py-2 rounded-lg text-xs font-mono text-emerald-300 border border-slate-700">p-8</button>
+              <button onclick="setPadding(16)" class="bg-slate-800 hover:bg-slate-700 py-2 rounded-lg text-xs font-mono text-emerald-300 border border-slate-700">p-16</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="panel-centering" class="space-y-6 control-panel hidden">
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">1. Select Width Constraint</label>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="setWidth('max-w-xs')" id="btn-xs" class="bg-slate-800 hover:bg-slate-700 p-3 rounded-xl text-xs font-bold text-slate-300 border border-slate-700 transition">max-w-xs (320px)</button>
+              <button onclick="setWidth('max-w-md')" id="btn-md" class="bg-emerald-600 text-white p-3 rounded-xl text-xs font-bold transition">max-w-md (448px)</button>
+            </div>
+            <button onclick="setWidth('w-full')" id="btn-full" class="w-full bg-slate-800 hover:bg-slate-700 p-3 rounded-xl text-xs font-bold text-red-400 border border-slate-700 transition">w-full (100% - Breaks Centering!)</button>
+          </div>
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">2. Select Margin Springs (`mx-*`)</label>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="setMargin('mx-auto')" id="margin-auto" class="bg-emerald-600 text-white p-3 rounded-xl text-xs font-bold transition">mx-auto (Centered)</button>
+              <button onclick="setMargin('ml-auto')" id="margin-left" class="bg-slate-800 hover:bg-slate-700 p-3 rounded-xl text-xs font-bold text-slate-300 border border-slate-700 transition">ml-auto (Pushed Right)</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="panel-stack" class="space-y-6 control-panel hidden">
+          <div>
+            <div class="flex justify-between text-xs font-bold text-slate-400 mb-2">
+              <span>Parent Gap Slider (`space-y-*`)</span>
+              <span id="stack-label" class="text-emerald-400 font-mono">space-y-4 (16px)</span>
+            </div>
+            <input type="range" id="stack-slider" min="0" max="12" step="2" value="4" class="w-full accent-emerald-500 cursor-pointer bg-slate-800 h-2 rounded-lg">
+          </div>
+          <div class="grid grid-cols-4 gap-2">
+            <button onclick="setStack(0)" class="bg-slate-800 hover:bg-slate-700 py-2 rounded-lg text-xs font-mono text-emerald-300 border border-slate-700">0</button>
+            <button onclick="setStack(2)" class="bg-slate-800 hover:bg-slate-700 py-2 rounded-lg text-xs font-mono text-emerald-300 border border-slate-700">2</button>
+            <button onclick="setStack(6)" class="bg-slate-800 hover:bg-slate-700 py-2 rounded-lg text-xs font-mono text-emerald-300 border border-slate-700">6</button>
+            <button onclick="setStack(12)" class="bg-slate-800 hover:bg-slate-700 py-2 rounded-lg text-xs font-mono text-emerald-300 border border-slate-700">12</button>
+          </div>
+        </div>
+
+        <div id="panel-negative" class="space-y-6 control-panel hidden">
+          <div>
+            <div class="flex justify-between text-xs font-bold text-slate-400 mb-2">
+              <span>Negative Margin Slider (`-mt-*`)</span>
+              <span id="neg-label" class="text-emerald-400 font-mono">-mt-10 (40px pull)</span>
+            </div>
+            <input type="range" id="neg-slider" min="0" max="16" step="4" value="10" class="w-full accent-emerald-500 cursor-pointer bg-slate-800 h-2 rounded-lg">
+          </div>
+          <div class="grid grid-cols-4 gap-2">
+            <button onclick="setNeg(0)" class="bg-slate-800 hover:bg-slate-700 py-2 rounded-lg text-xs font-mono text-emerald-300 border border-slate-700">0</button>
+            <button onclick="setNeg(4)" class="bg-slate-800 hover:bg-slate-700 py-2 rounded-lg text-xs font-mono text-emerald-300 border border-slate-700">-4</button>
+            <button onclick="setNeg(10)" class="bg-slate-800 hover:bg-slate-700 py-2 rounded-lg text-xs font-mono text-emerald-300 border border-slate-700">-10</button>
+            <button onclick="setNeg(16)" class="bg-slate-800 hover:bg-slate-700 py-2 rounded-lg text-xs font-mono text-emerald-300 border border-slate-700">-16</button>
+          </div>
+        </div>
+
+        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs text-slate-400">
+          <span class="font-bold text-emerald-400">⚡ Live Feedback:</span> Dragging sliders or clicking buttons instantly updates both the visual box and the underlying code inspection block below.
+        </div>
+      </aside>
+
+      <!-- Right Column: Visual Stage & Live Code Output (7 Cols) -->
+      <main class="lg:col-span-7 space-y-6">
+        <div class="bg-slate-900/90 p-6 rounded-2xl border border-slate-800 shadow-2xl relative">
+          <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-3">
+            <h3 class="text-xs uppercase tracking-wider font-bold text-slate-400">Live Visual Stage</h3>
+            <span id="badge-mode" class="text-xs px-2.5 py-1 rounded-full bg-emerald-950 text-emerald-400 font-mono">Padding Module</span>
+          </div>
+          
+          <!-- Visual Render Box -->
+          <div id="visual-stage" class="min-h-[280px] bg-slate-950 rounded-xl p-6 flex flex-col justify-center overflow-hidden border border-slate-800/80">
+            <!-- Dynamic HTML rendered here -->
+          </div>
+        </div>
+
+        <!-- Code Inspector -->
+        <div class="bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
+          <div class="bg-slate-900 px-4 py-3 border-b border-slate-800 flex justify-between items-center">
+            <span class="text-xs font-mono text-slate-400">Generated Code Feedback</span>
+            <span class="text-[10px] text-emerald-400 uppercase font-mono bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-900/40">Read-Only Live Feed</span>
+          </div>
+          <pre><code id="code-output" class="block p-5 text-emerald-300 font-mono text-xs overflow-x-auto leading-relaxed"></code></pre>
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <script>
+    let currentTab = 'padding';
+    
+    // State values
+    let padVal = 6;
+    let widthVal = 'max-w-md';
+    let marginVal = 'mx-auto';
+    let stackVal = 4;
+    let negVal = 10;
+
+    function switchTab(tab) {
+      currentTab = tab;
+      ['padding', 'centering', 'stack', 'negative'].forEach(t => {
+        document.getElementById(`panel-${t}`).classList.add('hidden');
+        document.getElementById(`tab-${t}`).className = "px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-400 hover:text-white transition";
+      });
+      document.getElementById(`panel-${tab}`).classList.remove('hidden');
+      document.getElementById(`tab-${tab}`).className = "px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 text-white shadow-lg transition";
+      
+      const titles = { padding: '🎚️ Padding Controls', centering: '🎯 Centering & Width Springs', stack: '📚 Parent Stack Spacing', negative: '⚓ Negative Margin Overlap' };
+      document.getElementById('control-title').textContent = titles[tab];
+      document.getElementById('badge-mode').textContent = `${tab.toUpperCase()} MODULE`;
+      render();
+    }
+
+    // Interactive setters
+    function setPadding(val) {
+      padVal = val;
+      document.getElementById('pad-slider').value = val;
+      document.getElementById('pad-label').textContent = `p-${val} (${val * 4}px)`;
+      document.getElementById('active-val-badge').textContent = `p-${val} (${val * 4}px)`;
+      render();
+    }
+    document.getElementById('pad-slider').addEventListener('input', (e) => setPadding(e.target.value));
+
+    function setWidth(w) {
+      widthVal = w;
+      ['xs', 'md', 'full'].forEach(id => {
+        const btn = document.getElementById(`btn-${id}`);
+        if(btn) btn.className = "bg-slate-800 hover:bg-slate-700 p-3 rounded-xl text-xs font-bold text-slate-300 border border-slate-700 transition";
+      });
+      if(w === 'max-w-xs') document.getElementById('btn-xs').className = "bg-emerald-600 text-white p-3 rounded-xl text-xs font-bold transition";
+      if(w === 'max-w-md') document.getElementById('btn-md').className = "bg-emerald-600 text-white p-3 rounded-xl text-xs font-bold transition";
+      if(w === 'w-full') document.getElementById('btn-full').className = "bg-red-600 text-white p-3 rounded-xl text-xs font-bold transition";
+      render();
+    }
+
+    function setMargin(m) {
+      marginVal = m;
+      document.getElementById('margin-auto').className = m === 'mx-auto' ? "bg-emerald-600 text-white p-3 rounded-xl text-xs font-bold transition" : "bg-slate-800 hover:bg-slate-700 p-3 rounded-xl text-xs font-bold text-slate-300 border border-slate-700 transition";
+      document.getElementById('margin-left').className = m === 'ml-auto' ? "bg-emerald-600 text-white p-3 rounded-xl text-xs font-bold transition" : "bg-slate-800 hover:bg-slate-700 p-3 rounded-xl text-xs font-bold text-slate-300 border border-slate-700 transition";
+      render();
+    }
+
+    function setStack(val) {
+      stackVal = val;
+      document.getElementById('stack-slider').value = val;
+      document.getElementById('stack-label').textContent = `space-y-${val} (${val * 4}px)`;
+      document.getElementById('active-val-badge').textContent = `space-y-${val}`;
+      render();
+    }
+    document.getElementById('stack-slider').addEventListener('input', (e) => setStack(e.target.value));
+
+    function setNeg(val) {
+      negVal = val;
+      document.getElementById('neg-slider').value = val;
+      document.getElementById('neg-label').textContent = `-mt-${val} (${val * 4}px pull)`;
+      document.getElementById('active-val-badge').textContent = `-mt-${val}`;
+      render();
+    }
+    document.getElementById('neg-slider').addEventListener('input', (e) => setNeg(e.target.value));
+
+    function render() {
+      let code = '';
+      if(currentTab === 'padding') {
+        code = `<div class="p-${padVal} bg-emerald-600 text-white font-bold rounded-xl border-2 border-dashed border-white/40 shadow-2xl transition-all duration-200">
+  <div class="bg-slate-950 p-4 rounded-lg text-center text-xs text-slate-200 border border-slate-800">
+    Box with <code class="text-emerald-400 font-mono">p-${padVal}</code> (${padVal * 4}px internal breathing room)
+  </div>
+</div>`;
+      } else if(currentTab === 'centering') {
+        code = `<div class="${widthVal} ${marginVal} bg-slate-900 p-6 rounded-2xl border border-slate-700 shadow-2xl transition-all duration-200">
+  <h4 class="text-base font-bold text-white">Spring Centering Container</h4>
+  <p class="text-xs text-slate-400 mt-2">
+    Width: <code class="text-amber-400 font-mono">${widthVal}</code> | Margin: <code class="text-emerald-400 font-mono">${marginVal}</code>
+  </p>
+</div>`;
+      } else if(currentTab === 'stack') {
+        code = `<div class="space-y-${stackVal} bg-slate-900 p-5 rounded-xl border border-slate-800 transition-all duration-200">
+  <div class="bg-indigo-600 p-3 rounded-lg text-xs font-bold text-white shadow">1. First Child Item</div>
+  <div class="bg-indigo-600 p-3 rounded-lg text-xs font-bold text-white shadow">2. Second Child Item</div>
+  <div class="bg-indigo-600 p-3 rounded-lg text-xs font-bold text-white shadow">3. Third Child Item</div>
+</div>`;
+      } else if(currentTab === 'negative') {
+        code = `<div class="w-full bg-slate-900 rounded-xl overflow-hidden border border-slate-800 pb-4 shadow-xl">
+  <div class="w-full h-24 bg-gradient-to-r from-indigo-500 to-fuchsia-500"></div>
+  <div class="w-16 h-16 rounded-full bg-slate-800 border-4 border-slate-950 font-bold text-emerald-400 flex items-center justify-center -mt-${negVal} ml-6 shadow-2xl text-xs transition-all duration-200">
+    AVATAR
+  </div>
+  <div class="px-6 mt-3">
+    <h4 class="font-bold text-sm text-white">Profile Card Header</h4>
+    <p class="text-xs text-slate-400 mt-1">Class <code class="text-emerald-400 font-mono">-mt-${negVal}</code> pulls avatar upward by ${negVal * 4}px.</p>
+  </div>
+</div>`;
+      }
+
+      document.getElementById('visual-stage').innerHTML = code;
+      document.getElementById('code-output').textContent = code.trim();
+    }
+
+    // Init
+    render();
+  </script>
+</body>
+</html>

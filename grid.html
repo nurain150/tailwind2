@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tailwind CSS Grid Playground</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen p-6 font-sans">
+  <div class="max-w-7xl mx-auto space-y-6">
+
+    <!-- Header -->
+    <header class="border-b border-slate-700 pb-4">
+      <h1 class="text-3xl font-bold text-emerald-400">Tailwind CSS Grid Master Playground</h1>
+      <p class="text-slate-400">Master 2D grid columns, row tracks, and individual cell spanning in real time.</p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <!-- Controls Panel -->
+      <aside class="space-y-6">
+        
+        <!-- Parent Controls -->
+        <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 space-y-4">
+          <h2 class="text-lg font-bold text-emerald-300 border-b border-slate-700 pb-2">1. Parent Grid Rules</h2>
+
+          <div>
+            <label class="block text-xs uppercase text-slate-400 mb-1">Grid Columns (`grid-cols-*`)</label>
+            <select id="p-cols" class="w-full bg-slate-700 rounded px-3 py-2 text-sm">
+              <option value="grid-cols-3">grid-cols-3 (3 Tracks)</option>
+              <option value="grid-cols-1">grid-cols-1 (1 Track)</option>
+              <option value="grid-cols-2">grid-cols-2 (2 Tracks)</option>
+              <option value="grid-cols-4">grid-cols-4 (4 Tracks)</option>
+              <option value="grid-cols-6">grid-cols-6 (6 Tracks)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs uppercase text-slate-400 mb-1">Gap (`gap-*` Gutters)</label>
+            <select id="p-gap" class="w-full bg-slate-700 rounded px-3 py-2 text-sm">
+              <option value="gap-4">gap-4 (16px)</option>
+              <option value="gap-2">gap-2 (8px)</option>
+              <option value="gap-6">gap-6 (24px)</option>
+              <option value="gap-0">gap-0 (No gap)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Selected Child Controls -->
+        <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 space-y-4">
+          <h2 class="text-lg font-bold text-amber-300 border-b border-slate-700 pb-2">2. Selected Item Spanning</h2>
+
+          <div>
+            <label class="block text-xs uppercase text-slate-400 mb-1">Select Box to Edit</label>
+            <select id="c-target" class="w-full bg-slate-700 font-bold rounded px-3 py-2 text-sm text-amber-400">
+              <option value="0">Box 1 (Indigo)</option>
+              <option value="1">Box 2 (Teal)</option>
+              <option value="2">Box 3 (Amber)</option>
+              <option value="3">Box 4 (Rose)</option>
+              <option value="4">Box 5 (Purple)</option>
+              <option value="5">Box 6 (Sky)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs uppercase text-slate-400 mb-1">Column Span (`col-span-*` Horizontal)</label>
+            <select id="c-col-span" class="w-full bg-slate-700 rounded px-3 py-2 text-sm">
+              <option value="">col-span-1 (Standard)</option>
+              <option value="col-span-2">col-span-2 (Span 2 Cols)</option>
+              <option value="col-span-3">col-span-3 (Span 3 Cols)</option>
+              <option value="col-span-full">col-span-full (Stretch across entire row)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs uppercase text-slate-400 mb-1">Row Span (`row-span-*` Vertical)</label>
+            <select id="c-row-span" class="w-full bg-slate-700 rounded px-3 py-2 text-sm">
+              <option value="">row-span-1 (Standard)</option>
+              <option value="row-span-2">row-span-2 (Span 2 Rows Tall)</option>
+              <option value="row-span-3">row-span-3 (Span 3 Rows Tall)</option>
+            </select>
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- Output Canvas -->
+      <main class="lg:col-span-2 space-y-4">
+        <h2 class="text-lg font-bold text-sky-300">3. Live Grid Output</h2>
+
+        <!-- HTML Code Preview -->
+        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 font-mono text-xs text-slate-300 space-y-1">
+          <div class="text-emerald-400">&lt;div class="<span id="p-code"></span>"&gt;</div>
+          <div id="c-code" class="pl-4 space-y-1 text-slate-400"></div>
+          <div class="text-emerald-400">&lt;/div&gt;</div>
+        </div>
+
+        <!-- Visual Canvas -->
+        <div id="grid-container" class="bg-slate-800 p-6 rounded-xl border-2 border-dashed border-emerald-500/50 min-h-[400px]">
+          <div class="box bg-indigo-600 text-white font-bold p-6 rounded-lg shadow-lg flex items-center justify-center">Box 1</div>
+          <div class="box bg-teal-600 text-white font-bold p-6 rounded-lg shadow-lg flex items-center justify-center">Box 2</div>
+          <div class="box bg-amber-600 text-white font-bold p-6 rounded-lg shadow-lg flex items-center justify-center">Box 3</div>
+          <div class="box bg-rose-600 text-white font-bold p-6 rounded-lg shadow-lg flex items-center justify-center">Box 4</div>
+          <div class="box bg-purple-600 text-white font-bold p-6 rounded-lg shadow-lg flex items-center justify-center">Box 5</div>
+          <div class="box bg-sky-600 text-white font-bold p-6 rounded-lg shadow-lg flex items-center justify-center">Box 6</div>
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <script>
+    const pCols = document.getElementById('p-cols');
+    const pGap = document.getElementById('p-gap');
+
+    const cTarget = document.getElementById('c-target');
+    const cColSpan = document.getElementById('c-col-span');
+    const cRowSpan = document.getElementById('c-row-span');
+
+    const gridContainer = document.getElementById('grid-container');
+    const boxEls = document.querySelectorAll('.box');
+    const pCode = document.getElementById('p-code');
+    const cCode = document.getElementById('c-code');
+
+    const boxesData = [
+      { colSpan: '', rowSpan: '' },
+      { colSpan: '', rowSpan: '' },
+      { colSpan: '', rowSpan: '' },
+      { colSpan: '', rowSpan: '' },
+      { colSpan: '', rowSpan: '' },
+      { colSpan: '', rowSpan: '' }
+    ];
+
+    const colors = [
+      'bg-indigo-600', 'bg-teal-600', 'bg-amber-600', 
+      'bg-rose-600', 'bg-purple-600', 'bg-sky-600'
+    ];
+
+    function loadTargetData() {
+      const idx = parseInt(cTarget.value);
+      const d = boxesData[idx];
+      cColSpan.value = d.colSpan;
+      cRowSpan.value = d.rowSpan;
+    }
+
+    function saveTargetData() {
+      const idx = parseInt(cTarget.value);
+      boxesData[idx] = {
+        colSpan: cColSpan.value,
+        rowSpan: cRowSpan.value
+      };
+      updatePlayground();
+    }
+
+    function updatePlayground() {
+      // Parent class update
+      const pClasses = `grid ${pCols.value} ${pGap.value}`;
+      gridContainer.className = `bg-slate-800 p-6 rounded-xl border-2 border-dashed border-emerald-500/50 min-h-[400px] ${pClasses}`;
+      pCode.textContent = pClasses;
+
+      // Children update
+      cCode.innerHTML = '';
+      boxEls.forEach((el, idx) => {
+        const d = boxesData[idx];
+        const spanClasses = [d.colSpan, d.rowSpan].filter(Boolean).join(' ');
+
+        el.className = `box p-6 rounded-lg shadow-lg font-bold text-white flex items-center justify-center ${colors[idx]} ${spanClasses}`;
+
+        const codeLine = document.createElement('div');
+        codeLine.className = idx === parseInt(cTarget.value) ? 'text-amber-300 font-bold' : 'text-slate-400';
+        codeLine.textContent = `<div class="${spanClasses || '...' }">Box ${idx + 1}</div>`;
+        cCode.appendChild(codeLine);
+      });
+    }
+
+    [pCols, pGap].forEach(el => el.addEventListener('change', updatePlayground));
+    cTarget.addEventListener('change', () => { loadTargetData(); updatePlayground(); });
+    [cColSpan, cRowSpan].forEach(el => el.addEventListener('change', saveTargetData));
+
+    loadTargetData();
+    updatePlayground();
+  </script>
+</body>
+</html>

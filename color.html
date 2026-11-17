@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tailwind Color & Border Laboratory</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen p-6 font-sans select-none">
+  <div class="max-w-7xl mx-auto space-y-8">
+
+    <!-- Header -->
+    <header class="border-b border-slate-800 pb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div>
+        <h1 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
+          Color & Border Master Laboratory
+        </h1>
+        <p class="text-slate-400 text-sm mt-1">
+          Interactive control deck for backgrounds, borders, corner radii, opacities, and shadows.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <button onclick="switchTab('colors')" id="tab-colors" class="px-3 py-2 rounded-xl text-xs font-bold bg-emerald-500 text-slate-950 shadow-lg transition">1. Background & Opacity</button>
+        <button onclick="switchTab('borders')" id="tab-borders" class="px-3 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-400 hover:text-white transition">2. Width & Styles</button>
+        <button onclick="switchTab('radius')" id="tab-radius" class="px-3 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-400 hover:text-white transition">3. Corner Radius</button>
+        <button onclick="switchTab('shadows')" id="tab-shadows" class="px-3 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-400 hover:text-white transition">4. Elevation Shadows</button>
+      </div>
+    </header>
+
+    <!-- Workspace Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+      <!-- Left Column: Controls (5 Cols) -->
+      <aside class="lg:col-span-5 space-y-6 bg-slate-900/90 p-6 rounded-2xl border border-slate-800 shadow-2xl">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <h2 id="control-title" class="text-lg font-bold text-emerald-400 flex items-center gap-2">
+            🎨 Background & Opacity
+          </h2>
+          <span id="active-val-badge" class="text-xs font-mono bg-slate-800 text-emerald-400 px-2.5 py-1 rounded-full">bg-emerald-500</span>
+        </div>
+
+        <!-- Panel 1: Colors & Opacity -->
+        <div id="panel-colors" class="space-y-6 control-panel">
+          <div class="space-y-2">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Background Color (`bg-*`)</span>
+            <div class="grid grid-cols-3 gap-2">
+              <button onclick="setBg('bg-emerald-500')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-emerald-400 border border-slate-700">emerald-500</button>
+              <button onclick="setBg('bg-indigo-600')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-indigo-400 border border-slate-700">indigo-600</button>
+              <button onclick="setBg('bg-amber-500')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-amber-400 border border-slate-700">amber-500</button>
+              <button onclick="setBg('bg-rose-500')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-rose-400 border border-slate-700">rose-500</button>
+              <button onclick="setBg('bg-slate-800')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-slate-300 border border-slate-700">slate-800</button>
+              <button onclick="setBg('bg-transparent')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-slate-400 border border-slate-700">transparent</button>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Background Opacity Modifier (`bg-*/opacity`)</span>
+            <div class="grid grid-cols-4 gap-2">
+              <button onclick="setBgOpacity('')" class="bg-slate-800 hover:bg-slate-700 py-2 rounded-lg text-xs font-mono text-emerald-300 border border-slate-700">100%</button>
+              <button onclick="setBgOpacity('/75')" class="bg-slate-800 hover:bg-slate-700 py-2 rounded-lg text-xs font-mono text-emerald-300 border border-slate-700">75%</button>
+              <button onclick="setBgOpacity('/50')" class="bg-slate-800 hover:bg-slate-700 py-2 rounded-lg text-xs font-mono text-emerald-300 border border-slate-700">50%</button>
+              <button onclick="setBgOpacity('/20')" class="bg-slate-800 hover:bg-slate-700 py-2 rounded-lg text-xs font-mono text-emerald-300 border border-slate-700">20%</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 2: Border Width & Styles -->
+        <div id="panel-borders" class="space-y-6 control-panel hidden">
+          <div class="space-y-2">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Border Width (`border-*`)</span>
+            <div class="grid grid-cols-4 gap-2">
+              <button onclick="setBorderWidth('border-0')" class="bg-slate-800 hover:bg-slate-700 py-2 rounded-lg text-xs font-mono text-slate-300 border border-slate-700">border-0</button>
+              <button onclick="setBorderWidth('border')" class="bg-slate-800 hover:bg-slate-700 py-2 rounded-lg text-xs font-mono text-slate-300 border border-slate-700">border (1px)</button>
+              <button onclick="setBorderWidth('border-2')" class="bg-slate-800 hover:bg-slate-700 py-2 rounded-lg text-xs font-mono text-slate-300 border border-slate-700">border-2</button>
+              <button onclick="setBorderWidth('border-4')" class="bg-slate-800 hover:bg-slate-700 py-2 rounded-lg text-xs font-mono text-slate-300 border border-slate-700">border-4</button>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Border Color (`border-*`)</span>
+            <div class="grid grid-cols-3 gap-2">
+              <button onclick="setBorderColor('border-emerald-500')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-emerald-400 border border-slate-700">emerald-500</button>
+              <button onclick="setBorderColor('border-cyan-400')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-cyan-400 border border-slate-700">cyan-400</button>
+              <button onclick="setBorderColor('border-rose-500')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-rose-400 border border-slate-700">rose-500</button>
+              <button onclick="setBorderColor('border-white/20')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-white/60 border border-slate-700">white/20</button>
+              <button onclick="setBorderColor('border-slate-700')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-slate-400 border border-slate-700">slate-700</button>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Border Style (`border-*`)</span>
+            <div class="grid grid-cols-3 gap-2">
+              <button onclick="setBorderStyle('border-solid')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-slate-300 border border-slate-700">solid</button>
+              <button onclick="setBorderStyle('border-dashed')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-slate-300 border border-slate-700">dashed</button>
+              <button onclick="setBorderStyle('border-dotted')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-slate-300 border border-slate-700">dotted</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 3: Corner Radius -->
+        <div id="panel-radius" class="space-y-6 control-panel hidden">
+          <div class="space-y-2">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Corner Rounding (`rounded-*`)</span>
+            <div class="grid grid-cols-3 gap-2">
+              <button onclick="setRadius('rounded-none')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-slate-300 border border-slate-700">rounded-none</button>
+              <button onclick="setRadius('rounded-md')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-slate-300 border border-slate-700">rounded-md</button>
+              <button onclick="setRadius('rounded-xl')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-slate-300 border border-slate-700">rounded-xl</button>
+              <button onclick="setRadius('rounded-2xl')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-slate-300 border border-slate-700">rounded-2xl</button>
+              <button onclick="setRadius('rounded-3xl')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-slate-300 border border-slate-700">rounded-3xl</button>
+              <button onclick="setRadius('rounded-full')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-slate-300 border border-slate-700">rounded-full</button>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Targeted Sides Radius</span>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="setRadius('rounded-t-2xl')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-slate-300 border border-slate-700">rounded-t-2xl (Top)</button>
+              <button onclick="setRadius('rounded-b-2xl')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-slate-300 border border-slate-700">rounded-b-2xl (Bottom)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 4: Elevation Shadows -->
+        <div id="panel-shadows" class="space-y-6 control-panel hidden">
+          <div class="space-y-2">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Box Elevation (`shadow-*`)</span>
+            <div class="grid grid-cols-3 gap-2">
+              <button onclick="setShadow('shadow-none')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-slate-300 border border-slate-700">shadow-none</button>
+              <button onclick="setShadow('shadow-md')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-slate-300 border border-slate-700">shadow-md</button>
+              <button onclick="setShadow('shadow-xl')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-slate-300 border border-slate-700">shadow-xl</button>
+              <button onclick="setShadow('shadow-2xl')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-slate-300 border border-slate-700">shadow-2xl</button>
+              <button onclick="setShadow('shadow-emerald-500/50')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-mono text-emerald-400 border border-slate-700">colored shadow</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs text-slate-400">
+          <span class="font-bold text-emerald-400">⚡ Design Golden Rule:</span> Combine subtle borders (`border border-slate-800`) with semi-transparent opacities (`bg-slate-900/80`) to achieve clean dark-mode depth.
+        </div>
+      </aside>
+
+      <!-- Right Column: Visual Stage & Code Inspector (7 Cols) -->
+      <main class="lg:col-span-7 space-y-6">
+        <div class="bg-slate-900/90 p-6 rounded-2xl border border-slate-800 shadow-2xl relative">
+          <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-3">
+            <h3 class="text-xs uppercase tracking-wider font-bold text-slate-400">Live Visual Stage</h3>
+            <span id="badge-mode" class="text-xs px-2.5 py-1 rounded-full bg-emerald-950 text-emerald-400 font-mono">COLORS MODULE</span>
+          </div>
+          
+          <div id="visual-stage" class="min-h-[300px] bg-slate-950 rounded-xl p-8 flex items-center justify-center border border-slate-800/80 relative overflow-hidden">
+            <!-- Dynamic Element Rendered Here -->
+          </div>
+        </div>
+
+        <!-- Code Inspector -->
+        <div class="bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
+          <div class="bg-slate-900 px-4 py-3 border-b border-slate-800 flex justify-between items-center">
+            <span class="text-xs font-mono text-slate-400">Generated HTML & Tailwind Code</span>
+            <span class="text-[10px] text-emerald-400 uppercase font-mono bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-900/40">Read-Only Live Feed</span>
+          </div>
+          <pre><code id="code-output" class="block p-5 text-emerald-300 font-mono text-xs overflow-x-auto leading-relaxed"></code></pre>
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <script>
+    let currentTab = 'colors';
+    
+    // State variables
+    let bgVal = 'bg-emerald-500';
+    let bgOpacityVal = '';
+    let borderWidthVal = 'border-2';
+    let borderColorVal = 'border-emerald-400';
+    let borderStyleVal = 'border-solid';
+    let radiusVal = 'rounded-2xl';
+    let shadowVal = 'shadow-xl';
+
+    function switchTab(tab) {
+      currentTab = tab;
+      ['colors', 'borders', 'radius', 'shadows'].forEach(t => {
+        document.getElementById(`panel-${t}`).classList.add('hidden');
+        document.getElementById(`tab-${t}`).className = "px-3 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-400 hover:text-white transition";
+      });
+      document.getElementById(`panel-${tab}`).classList.remove('hidden');
+      document.getElementById(`tab-${tab}`).className = "px-3 py-2 rounded-xl text-xs font-bold bg-emerald-500 text-slate-950 shadow-lg transition";
+      
+      const titles = { 
+        colors: '🎨 Background & Opacity Controls', 
+        borders: '📐 Border Width & Style Controls', 
+        radius: '⭕ Corner Radius Controls', 
+        shadows: '✨ Elevation Shadow Controls' 
+      };
+      document.getElementById('control-title').textContent = titles[tab];
+      document.getElementById('badge-mode').textContent = `${tab.toUpperCase()} MODULE`;
+      render();
+    }
+
+    function setBg(v) { bgVal = v; render(); }
+    function setBgOpacity(v) { bgOpacityVal = v; render(); }
+    function setBorderWidth(v) { borderWidthVal = v; render(); }
+    function setBorderColor(v) { borderColorVal = v; render(); }
+    function setBorderStyle(v) { borderStyleVal = v; render(); }
+    function setRadius(v) { radiusVal = v; render(); }
+    function setShadow(v) { shadowVal = v; render(); }
+
+    function render() {
+      const fullBg = `${bgVal}${bgOpacityVal}`;
+      const activeClasses = `${fullBg} ${borderWidthVal} ${borderColorVal} ${borderStyleVal} ${radiusVal} ${shadowVal}`;
+      
+      const elementHtml = `<div class="w-full max-w-sm p-6 ${activeClasses} transition-all duration-300 flex flex-col items-center justify-center text-center space-y-3">
+  <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center font-bold text-white">⚡</div>
+  <h3 class="text-lg font-bold text-white">Interactive Card</h3>
+  <p class="text-xs text-white/80">Testing colors, borders, corner radius, and elevation depth live.</p>
+</div>`;
+
+      document.getElementById('active-val-badge').textContent = fullBg;
+      document.getElementById('visual-stage').innerHTML = elementHtml;
+      document.getElementById('code-output').textContent = elementHtml.trim();
+    }
+
+    render();
+  </script>
+</body>
+</html>

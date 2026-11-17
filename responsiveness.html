@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tailwind Responsive Design Laboratory</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen p-4 sm:p-6 lg:p-8 font-sans select-none">
+  <div class="max-w-7xl mx-auto space-y-8">
+
+    <!-- Header & Live Breakpoint Tracker -->
+    <header class="border-b border-slate-800 pb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div>
+        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
+          Responsive Design Laboratory
+        </h1>
+        <p class="text-slate-400 text-xs sm:text-sm mt-1">
+          Resize your browser window to watch layout rules and styles adapt across breakpoints.
+        </p>
+      </div>
+
+      <!-- Active Breakpoint Monitor -->
+      <div class="flex items-center gap-3 bg-slate-900 p-3 rounded-xl border border-slate-800 shadow-xl self-start md:self-auto">
+        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Active Screen:</span>
+        <div id="breakpoint-indicator" class="font-mono text-xs font-bold px-3 py-1 rounded-md transition-all duration-300">
+          <!-- Dynamically Updated via Script -->
+        </div>
+      </div>
+    </header>
+
+    <!-- Lab Module 1: Mobile-First Adaptive Navigation Bar -->
+    <section class="space-y-3">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xs uppercase tracking-wider font-bold text-slate-400">Module 1: Adaptive Navigation Bar</h2>
+        <span class="text-[10px] font-mono bg-slate-900 text-emerald-400 px-2 py-1 rounded border border-slate-800">flex-col $\rightarrow$ md:flex-row</span>
+      </div>
+
+      <nav class="bg-slate-900 p-4 rounded-2xl border border-slate-800 shadow-xl flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <!-- Logo Brand -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center font-bold text-slate-950">⚡</div>
+            <span class="font-bold text-base sm:text-lg text-white tracking-tight">ResponsiveApp</span>
+          </div>
+          <!-- Mobile Menu Badge -->
+          <span class="md:hidden text-[10px] font-mono bg-slate-800 text-amber-400 px-2 py-1 rounded">MOBILE VIEW</span>
+        </div>
+
+        <!-- Links (Stacked on Mobile, Horizontal Row on Tablet/Desktop) -->
+        <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 text-xs font-medium text-slate-400">
+          <a href="#" class="bg-slate-800/50 hover:bg-slate-800 text-slate-200 px-3 py-2 rounded-lg transition">Dashboard</a>
+          <a href="#" class="bg-slate-800/50 hover:bg-slate-800 text-slate-200 px-3 py-2 rounded-lg transition">Analytics</a>
+          <a href="#" class="bg-slate-800/50 hover:bg-slate-800 text-slate-200 px-3 py-2 rounded-lg transition">Settings</a>
+        </div>
+
+        <!-- CTA Button -->
+        <button class="w-full md:w-auto bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-2 rounded-lg text-xs transition shadow-lg">
+          Get Started
+        </button>
+      </nav>
+    </section>
+
+    <!-- Lab Module 2: Fluid Multi-Column Grid System -->
+    <section class="space-y-3">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xs uppercase tracking-wider font-bold text-slate-400">Module 2: Fluid Card Grid</h2>
+        <span class="text-[10px] font-mono bg-slate-900 text-emerald-400 px-2 py-1 rounded border border-slate-800">grid-cols-1 $\rightarrow$ sm:grid-cols-2 $\rightarrow$ lg:grid-cols-3</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+        
+        <!-- Card 1 -->
+        <div class="bg-slate-900 p-5 sm:p-6 rounded-2xl border border-slate-800 space-y-3 hover:border-slate-700 transition">
+          <div class="w-10 h-10 rounded-xl bg-emerald-950 border border-emerald-800 flex items-center justify-center text-emerald-400 font-bold text-sm">01</div>
+          <h3 class="text-base sm:text-lg font-bold text-white">Mobile Base (Default)</h3>
+          <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+            Written without prefixes. Targets small screens ($< 640\text{px}$) with full-width cards and compact padding (<code class="text-emerald-400">p-5</code>).
+          </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-slate-900 p-5 sm:p-6 rounded-2xl border border-slate-800 space-y-3 hover:border-slate-700 transition">
+          <div class="w-10 h-10 rounded-xl bg-cyan-950 border border-cyan-800 flex items-center justify-center text-cyan-400 font-bold text-sm">02</div>
+          <h3 class="text-base sm:text-lg font-bold text-white">Tablet Shift (<code class="text-cyan-400">sm:</code> / <code class="text-cyan-400">md:</code>)</h3>
+          <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+            At $640\text{px}$+, the grid expands to 2 columns. Padding grows smoothly (<code class="text-cyan-400">sm:p-6</code>) following proximity rules.
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-slate-900 p-5 sm:p-6 rounded-2xl border border-slate-800 space-y-3 hover:border-slate-700 transition sm:col-span-2 lg:col-span-1">
+          <div class="w-10 h-10 rounded-xl bg-indigo-950 border border-indigo-800 flex items-center justify-center text-indigo-400 font-bold text-sm">03</div>
+          <h3 class="text-base sm:text-lg font-bold text-white">Desktop Expansion (<code class="text-indigo-400">lg:</code>)</h3>
+          <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+            At $1024\text{px}$+, the grid expands to 3 columns with increased gap spacing (<code class="text-indigo-400">lg:gap-6</code>).
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Lab Module 3: Responsive Typography & Padding Inspector -->
+    <section class="bg-slate-900/90 p-6 sm:p-8 lg:p-10 rounded-2xl border border-slate-800 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h2 class="text-xs uppercase tracking-wider font-bold text-slate-400">Module 3: Scaling Typography & Spacing</h2>
+        <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/50 px-2.5 py-1 rounded border border-emerald-900/40">Scale Inspector</span>
+      </div>
+
+      <div class="space-y-2">
+        <span class="text-xs font-mono text-emerald-400">class="text-xl sm:text-2xl md:text-3xl lg:text-4xl"</span>
+        <h3 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-white tracking-tight transition-all duration-300">
+          This Headline Automatically Scales Up Across Viewports
+        </h3>
+      </div>
+
+      <p class="text-xs sm:text-sm md:text-base text-slate-400 max-w-3xl leading-relaxed">
+        Notice how this text smoothly adjusts both its font size and container padding without breaking line flow or causing horizontal overflow. This applies the mobile-first principle—building up rather than shrinking down.
+      </p>
+    </section>
+
+    <!-- Code Output Feed -->
+    <section class="bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
+      <div class="bg-slate-900 px-4 py-3 border-b border-slate-800 flex justify-between items-center">
+        <span class="text-xs font-mono text-slate-400">Responsive Pattern Cheat Sheet</span>
+        <span class="text-[10px] text-emerald-400 uppercase font-mono bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-900/40">Mobile-First Rules</span>
+      </div>
+      <pre><code class="block p-5 text-emerald-300 font-mono text-xs overflow-x-auto leading-relaxed"><!-- 1. Stack on mobile, side-by-side on tablet/desktop -->
+&lt;div class="flex flex-col md:flex-row gap-4"&gt;&lt;/div&gt;
+
+<!-- 2. Responsive 1 $\rightarrow$ 2 $\rightarrow$ 3 column grid -->
+&lt;div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6"&gt;&lt;/div&gt;
+
+<!-- 3. Scaling typography from mobile to desktop -->
+&lt;h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl"&gt;&lt;/h1&gt;</code></pre>
+    </section>
+
+  </div>
+
+  <script>
+    // Live Breakpoint Detector Script
+    function updateBreakpoint() {
+      const width = window.innerWidth;
+      const indicator = document.getElementById('breakpoint-indicator');
+      
+      if (width < 640) {
+        indicator.textContent = `MOBILE (< 640px) | ${width}px`;
+        indicator.className = "font-mono text-xs font-bold px-3 py-1 rounded-md transition-all duration-300 bg-amber-950 text-amber-400 border border-amber-800/60";
+      } else if (width < 768) {
+        indicator.textContent = `SM (≥ 640px) | ${width}px`;
+        indicator.className = "font-mono text-xs font-bold px-3 py-1 rounded-md transition-all duration-300 bg-emerald-950 text-emerald-400 border border-emerald-800/60";
+      } else if (width < 1024) {
+        indicator.textContent = `MD (≥ 768px) | ${width}px`;
+        indicator.className = "font-mono text-xs font-bold px-3 py-1 rounded-md transition-all duration-300 bg-cyan-950 text-cyan-400 border border-cyan-800/60";
+      } else if (width < 1280) {
+        indicator.textContent = `LG (≥ 1024px) | ${width}px`;
+        indicator.className = "font-mono text-xs font-bold px-3 py-1 rounded-md transition-all duration-300 bg-indigo-950 text-indigo-400 border border-indigo-800/60";
+      } else {
+        indicator.textContent = `XL (≥ 1280px) | ${width}px`;
+        indicator.className = "font-mono text-xs font-bold px-3 py-1 rounded-md transition-all duration-300 bg-purple-950 text-purple-400 border border-purple-800/60";
+      }
+    }
+
+    window.addEventListener('resize', updateBreakpoint);
+    updateBreakpoint();
+  </script>
+</body>
+</html>

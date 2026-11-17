@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tailwind Typography Master Laboratory</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen p-6 font-sans select-none">
+  <div class="max-w-7xl mx-auto space-y-8">
+
+    <!-- Header -->
+    <header class="border-b border-slate-800 pb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div>
+        <h1 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400">
+          Typography Master Laboratory
+        </h1>
+        <p class="text-slate-400 text-sm mt-1">
+          Interactive visual control deck covering size, weight, leading, tracking, families, color contrast, and truncation.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <button onclick="switchTab('size')" id="tab-size" class="px-3 py-2 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 shadow-lg transition">1. Size & Weight</button>
+        <button onclick="switchTab('spacing')" id="tab-spacing" class="px-3 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-400 hover:text-white transition">2. Leading & Tracking</button>
+        <button onclick="switchTab('family')" id="tab-family" class="px-3 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-400 hover:text-white transition">3. Family & Color</button>
+        <button onclick="switchTab('utility')" id="tab-utility" class="px-3 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-400 hover:text-white transition">4. Align & Truncate</button>
+      </div>
+    </header>
+
+    <!-- Workspace Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+      <!-- Left Column: Interactive Control Deck (5 Cols) -->
+      <aside class="lg:col-span-5 space-y-6 bg-slate-900/90 p-6 rounded-2xl border border-slate-800 shadow-2xl">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <h2 id="control-title" class="text-lg font-bold text-amber-400 flex items-center gap-2">
+            <span>🎚️</span> Size & Weight Controls
+          </h2>
+          <span id="active-val-badge" class="text-xs font-mono bg-slate-800 text-amber-400 px-2.5 py-1 rounded-full">text-xl font-bold</span>
+        </div>
+
+        <!-- Panel 1: Size & Weight -->
+        <div id="panel-size" class="space-y-6 control-panel">
+          <div>
+            <div class="flex justify-between text-xs font-bold text-slate-400 mb-2">
+              <span>Font Size Scale (`text-*`)</span>
+              <span id="size-label" class="text-amber-400 font-mono">text-xl (20px)</span>
+            </div>
+            <input type="range" id="size-slider" min="0" max="6" step="1" value="3" class="w-full accent-amber-500 cursor-pointer bg-slate-800 h-2 rounded-lg">
+          </div>
+          <div class="space-y-2">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Font Weight (`font-*`)</span>
+            <div class="grid grid-cols-4 gap-2">
+              <button onclick="setWeight('font-light')" class="bg-slate-800 hover:bg-slate-700 py-2 rounded-lg text-xs font-mono text-amber-300 border border-slate-700">light</button>
+              <button onclick="setWeight('font-normal')" class="bg-slate-800 hover:bg-slate-700 py-2 rounded-lg text-xs font-mono text-amber-300 border border-slate-700">normal</button>
+              <button onclick="setWeight('font-semibold')" class="bg-slate-800 hover:bg-slate-700 py-2 rounded-lg text-xs font-mono text-amber-300 border border-slate-700">semibold</button>
+              <button onclick="setWeight('font-bold')" class="bg-amber-500 text-slate-950 py-2 rounded-lg text-xs font-mono font-bold" id="btn-weight-bold">bold</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 2: Leading & Tracking -->
+        <div id="panel-spacing" class="space-y-6 control-panel hidden">
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Line Height / Leading (`leading-*`)</label>
+            <div class="grid grid-cols-3 gap-2">
+              <button onclick="setLeading('leading-tight')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-bold text-slate-300 border border-slate-700">tight (1.25)</button>
+              <button onclick="setLeading('leading-normal')" class="bg-amber-500 text-slate-950 p-2.5 rounded-xl text-xs font-bold" id="btn-lead-normal">normal (1.5)</button>
+              <button onclick="setLeading('leading-relaxed')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-bold text-slate-300 border border-slate-700">relaxed (1.625)</button>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Letter Spacing / Tracking (`tracking-*`)</label>
+            <div class="grid grid-cols-3 gap-2">
+              <button onclick="setTracking('tracking-tight')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-bold text-slate-300 border border-slate-700">tight</button>
+              <button onclick="setTracking('tracking-normal')" class="bg-amber-500 text-slate-950 p-2.5 rounded-xl text-xs font-bold" id="btn-track-normal">normal</button>
+              <button onclick="setTracking('tracking-widest')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-bold text-slate-300 border border-slate-700">widest</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 3: Family & Color -->
+        <div id="panel-family" class="space-y-6 control-panel hidden">
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Font Family (`font-*`)</label>
+            <div class="grid grid-cols-3 gap-2">
+              <button onclick="setFontFamily('font-sans')" class="bg-amber-500 text-slate-950 p-2.5 rounded-xl text-xs font-bold" id="btn-fam-sans">sans</button>
+              <button onclick="setFontFamily('font-serif')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-bold text-slate-300 border border-slate-700">serif</button>
+              <button onclick="setFontFamily('font-mono')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-bold text-slate-300 border border-slate-700">mono</button>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Text Color & Opacity Contrast</label>
+            <div class="grid grid-cols-3 gap-2">
+              <button onclick="setTextColor('text-white')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-bold text-white border border-slate-700">text-white</button>
+              <button onclick="setTextColor('text-amber-400')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-bold text-amber-400 border border-slate-700">text-amber-400</button>
+              <button onclick="setTextColor('text-white/60')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-bold text-slate-400 border border-slate-700">text-white/60</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 4: Alignment & Truncate -->
+        <div id="panel-utility" class="space-y-6 control-panel hidden">
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Text Alignment (`text-*`)</label>
+            <div class="grid grid-cols-3 gap-2">
+              <button onclick="setAlign('text-left')" class="bg-amber-500 text-slate-950 p-2.5 rounded-xl text-xs font-bold" id="btn-align-left">left</button>
+              <button onclick="setAlign('text-center')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-bold text-slate-300 border border-slate-700">center</button>
+              <button onclick="setAlign('text-right')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-bold text-slate-300 border border-slate-700">right</button>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Overflow Safety & Truncation</label>
+            <div class="grid grid-cols-3 gap-2">
+              <button onclick="setTruncate('truncate')" class="bg-amber-500 text-slate-950 p-2.5 rounded-xl text-xs font-bold" id="btn-trunc">truncate</button>
+              <button onclick="setTruncate('line-clamp-2')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-bold text-slate-300 border border-slate-700">line-clamp-2</button>
+              <button onclick="setTruncate('normal')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-xl text-xs font-bold text-slate-300 border border-slate-700">no clamp</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs text-slate-400">
+          <span class="font-bold text-amber-400">⚡ Master Rule:</span> Combine families, weights, and leading carefully. Headings demand boldness and tight lines; paragraphs demand soft contrast, normal weights, and relaxed leading.
+        </div>
+      </aside>
+
+      <!-- Right Column: Visual Stage & Code Inspector (7 Cols) -->
+      <main class="lg:col-span-7 space-y-6">
+        <div class="bg-slate-900/90 p-6 rounded-2xl border border-slate-800 shadow-2xl relative">
+          <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-3">
+            <h3 class="text-xs uppercase tracking-wider font-bold text-slate-400">Live Visual Stage</h3>
+            <span id="badge-mode" class="text-xs px-2.5 py-1 rounded-full bg-amber-950 text-amber-400 font-mono">Size & Weight Active</span>
+          </div>
+          
+          <div id="visual-stage" class="min-h-[280px] bg-slate-950 rounded-xl p-6 flex flex-col justify-center overflow-hidden border border-slate-800/80">
+            <!-- Dynamic Render -->
+          </div>
+        </div>
+
+        <!-- Code Inspector -->
+        <div class="bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
+          <div class="bg-slate-900 px-4 py-3 border-b border-slate-800 flex justify-between items-center">
+            <span class="text-xs font-mono text-slate-400">Generated Code Feedback</span>
+            <span class="text-[10px] text-amber-400 uppercase font-mono bg-amber-950/50 px-2 py-0.5 rounded border border-amber-900/40">Read-Only Live Feed</span>
+          </div>
+          <pre><code id="code-output" class="block p-5 text-amber-300 font-mono text-xs overflow-x-auto leading-relaxed"></code></pre>
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <script>
+    let currentTab = 'size';
+    
+    // Typography state variables
+    const sizes = ['text-xs', 'text-sm', 'text-base', 'text-xl', 'text-3xl', 'text-5xl', 'text-7xl'];
+    let sizeIndex = 3;
+    let weightVal = 'font-bold';
+    let leadingVal = 'leading-normal';
+    let trackingVal = 'tracking-normal';
+    let familyVal = 'font-sans';
+    let colorVal = 'text-white';
+    let alignVal = 'text-left';
+    let truncateVal = 'truncate';
+
+    function switchTab(tab) {
+      currentTab = tab;
+      ['size', 'spacing', 'family', 'utility'].forEach(t => {
+        document.getElementById(`panel-${t}`).classList.add('hidden');
+        document.getElementById(`tab-${t}`).className = "px-3 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-400 hover:text-white transition";
+      });
+      document.getElementById(`panel-${tab}`).classList.remove('hidden');
+      document.getElementById(`tab-${tab}`).className = "px-3 py-2 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 shadow-lg transition";
+      
+      const titles = { 
+        size: '🎚️ Size & Weight Controls', 
+        spacing: '📐 Leading & Tracking Controls', 
+        family: '🎨 Family & Color Contrast', 
+        utility: '✂️ Alignment & Truncation' 
+      };
+      document.getElementById('control-title').textContent = titles[tab];
+      document.getElementById('badge-mode').textContent = `${tab.toUpperCase()} MODULE`;
+      render();
+    }
+
+    document.getElementById('size-slider').addEventListener('input', (e) => {
+      sizeIndex = e.target.value;
+      document.getElementById('size-label').textContent = `${sizes[sizeIndex]} (${[12,14,16,20,30,48,72][sizeIndex]}px)`;
+      render();
+    });
+
+    function setWeight(w) { weightVal = w; render(); }
+    function setLeading(l) { leadingVal = l; render(); }
+    function setTracking(t) { trackingVal = t; render(); }
+    function setFontFamily(f) { familyVal = f; render(); }
+    function setTextColor(c) { colorVal = c; render(); }
+    function setAlign(a) { alignVal = a; render(); }
+    function setTruncate(tr) { truncateVal = tr; render(); }
+
+    function render() {
+      let code = '';
+      if (currentTab === 'size') {
+        code = `<div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
+  <h2 class="${sizes[sizeIndex]} ${weightVal} ${familyVal} ${colorVal}">
+    Typography Hierarchy Headline
+  </h2>
+  <p class="text-xs text-slate-500 mt-3 font-mono">Active Classes: class="${sizes[sizeIndex]} ${weightVal} ${familyVal} ${colorVal}"</p>
+</div>`;
+      } else if (currentTab === 'spacing') {
+        code = `<div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
+  <p class="text-sm ${leadingVal} ${trackingVal} ${colorVal} ${familyVal}">
+    Typography is the art and technique of arranging type to make written language legible, readable, and appealing when displayed. Proper leading prevents line collision, while tracking polishes uppercase UI labels.
+  </p>
+  <p class="text-xs text-amber-400 font-mono mt-4">Active Classes: class="${leadingVal} ${trackingVal}"</p>
+</div>`;
+      } else if (currentTab === 'family') {
+        code = `<div class="bg-slate-900 p-6 rounded-xl border border-slate-800 space-y-3">
+  <p class="${familyVal} text-lg ${weightVal} ${colorVal}">
+    Current Typeface Family Test ($3,490.00 / API_KEY_99X)
+  </p>
+  <p class="text-xs text-slate-400">Notice how <code class="text-amber-400">font-mono</code> aligns numbers and code perfectly, while <code class="text-amber-400">font-serif</code> gives an editorial feel.</p>
+  <p class="text-xs text-amber-400 font-mono mt-2">Active Class: class="${familyVal}"</p>
+</div>`;
+      } else if (currentTab === 'utility') {
+        code = `<div class="bg-slate-900 p-6 rounded-xl border border-slate-800 max-w-sm mx-auto">
+  <p class="${alignVal} ${truncateVal} text-sm ${colorVal} font-medium">
+    This is an extremely long title string designed to test layout safety and containment boundaries.
+  </p>
+  <p class="text-xs text-amber-400 font-mono mt-4 ${alignVal}">Active Classes: class="${alignVal} ${truncateVal}"</p>
+</div>`;
+      }
+
+      document.getElementById('active-val-badge').textContent = `${sizes[sizeIndex]} ${weightVal}`;
+      document.getElementById('visual-stage').innerHTML = code;
+      document.getElementById('code-output').textContent = code.trim();
+    }
+
+    render();
+  </script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tailwind Flexbox Master Playground</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen p-6 font-sans">
+  <div class="max-w-7xl mx-auto space-y-6">
+
+    <!-- Header -->
+    <header class="border-b border-slate-700 pb-4">
+      <h1 class="text-3xl font-bold text-sky-400">Tailwind Flexbox & Child Item Master Playground</h1>
+      <p class="text-slate-400">Control both parent container layout and individual child box behavior in real time.</p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <!-- Parent Controls -->
+      <aside class="bg-slate-800 p-5 rounded-xl border border-slate-700 space-y-4">
+        <h2 class="text-lg font-bold text-sky-300 border-b border-slate-700 pb-2">1. Parent Container Rules</h2>
+
+        <div>
+          <label class="block text-xs uppercase text-slate-400 mb-1">Direction</label>
+          <select id="p-dir" class="w-full bg-slate-700 rounded px-3 py-2 text-sm">
+            <option value="flex-row">flex-row</option>
+            <option value="flex-row-reverse">flex-row-reverse</option>
+            <option value="flex-col">flex-col</option>
+            <option value="flex-col-reverse">flex-col-reverse</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs uppercase text-slate-400 mb-1">Flex Wrap</label>
+          <select id="p-wrap" class="w-full bg-slate-700 rounded px-3 py-2 text-sm">
+            <option value="flex-wrap">flex-wrap</option>
+            <option value="flex-nowrap">flex-nowrap</option>
+            <option value="flex-wrap-reverse">flex-wrap-reverse</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs uppercase text-slate-400 mb-1">Justify Content (Main Axis)</label>
+          <select id="p-justify" class="w-full bg-slate-700 rounded px-3 py-2 text-sm">
+            <option value="justify-start">justify-start</option>
+            <option value="justify-center">justify-center</option>
+            <option value="justify-end">justify-end</option>
+            <option value="justify-between">justify-between</option>
+            <option value="justify-around">justify-around</option>
+            <option value="justify-evenly">justify-evenly</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs uppercase text-slate-400 mb-1">Align Items (Cross Axis)</label>
+          <select id="p-align" class="w-full bg-slate-700 rounded px-3 py-2 text-sm">
+            <option value="items-stretch">items-stretch</option>
+            <option value="items-start">items-start</option>
+            <option value="items-center">items-center</option>
+            <option value="items-end">items-end</option>
+            <option value="items-baseline">items-baseline</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs uppercase text-slate-400 mb-1">Gap</label>
+          <select id="p-gap" class="w-full bg-slate-700 rounded px-3 py-2 text-sm">
+            <option value="gap-4">gap-4 (16px)</option>
+            <option value="gap-2">gap-2 (8px)</option>
+            <option value="gap-8">gap-8 (32px)</option>
+            <option value="gap-0">gap-0</option>
+          </select>
+        </div>
+      </aside>
+
+      <!-- Selected Child Item Controls -->
+      <aside class="bg-slate-800 p-5 rounded-xl border border-slate-700 space-y-4">
+        <h2 class="text-lg font-bold text-amber-300 border-b border-slate-700 pb-2">2. Selected Child Box Rules</h2>
+
+        <div>
+          <label class="block text-xs uppercase text-slate-400 mb-1">Select Box to Edit</label>
+          <select id="c-target" class="w-full bg-slate-700 font-bold rounded px-3 py-2 text-sm text-amber-400">
+            <option value="0">Box 1 (Indigo)</option>
+            <option value="1">Box 2 (Teal)</option>
+            <option value="2">Box 3 (Amber)</option>
+            <option value="3">Box 4 (Rose)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs uppercase text-slate-400 mb-1">Flex Sizing (`flex-*` Shorthand)</label>
+          <select id="c-flex" class="w-full bg-slate-700 rounded px-3 py-2 text-sm">
+            <option value="">Default (Content size)</option>
+            <option value="flex-1">flex-1 (Equal space, shrink & grow)</option>
+            <option value="flex-auto">flex-auto (Grow & shrink based on content)</option>
+            <option value="flex-initial">flex-initial (Shrink only, no grow)</option>
+            <option value="flex-none">flex-none (Fixed size, no grow/shrink)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs uppercase text-slate-400 mb-1">Align Self (`self-*` Override)</label>
+          <select id="c-self" class="w-full bg-slate-700 rounded px-3 py-2 text-sm">
+            <option value="self-auto">self-auto (Inherit parent align)</option>
+            <option value="self-start">self-start</option>
+            <option value="self-center">self-center</option>
+            <option value="self-end">self-end</option>
+            <option value="self-stretch">self-stretch</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs uppercase text-slate-400 mb-1">Order (`order-*` Visual Reordering)</label>
+          <select id="c-order" class="w-full bg-slate-700 rounded px-3 py-2 text-sm">
+            <option value="order-none">order-none (Default)</option>
+            <option value="order-first">order-first (Move to beginning)</option>
+            <option value="order-last">order-last (Move to end)</option>
+            <option value="order-1">order-1</option>
+            <option value="order-2">order-2</option>
+            <option value="order-3">order-3</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs uppercase text-slate-400 mb-1">Grow / Shrink Toggles</label>
+          <div class="grid grid-cols-2 gap-2 text-sm">
+            <label class="flex items-center gap-2 cursor-pointer bg-slate-700 p-2 rounded">
+              <input type="checkbox" id="c-grow" class="rounded text-sky-500"> `grow`
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer bg-slate-700 p-2 rounded">
+              <input type="checkbox" id="c-shrink" class="rounded text-sky-500"> `shrink-0`
+            </label>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Live Code & Visual Canvas -->
+      <main class="space-y-4">
+        <h2 class="text-lg font-bold text-emerald-300">3. Live Output</h2>
+
+        <!-- Parent HTML Markup -->
+        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 font-mono text-xs text-slate-300 space-y-1">
+          <div class="text-sky-400">&lt;div class="<span id="p-code"></span>"&gt;</div>
+          <div id="c-code" class="pl-4 space-y-1 text-slate-400"></div>
+          <div class="text-sky-400">&lt;/div&gt;</div>
+        </div>
+
+        <!-- Rendered Canvas -->
+        <div id="container" class="bg-slate-800 p-6 rounded-xl border-2 border-dashed border-sky-500/50 min-h-[360px]">
+          <div class="box bg-indigo-600 text-white font-bold p-4 rounded-lg shadow-lg">Box 1</div>
+          <div class="box bg-teal-600 text-white font-bold p-4 rounded-lg shadow-lg">Box 2 (Longer Text)</div>
+          <div class="box bg-amber-600 text-white font-bold p-4 rounded-lg shadow-lg">Box 3</div>
+          <div class="box bg-rose-600 text-white font-bold p-4 rounded-lg shadow-lg">Box 4</div>
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <script>
+    const parentInputs = ['p-dir', 'p-wrap', 'p-justify', 'p-align', 'p-gap'];
+    const boxesData = [
+      { flex: '', self: 'self-auto', order: 'order-none', grow: false, shrink0: false },
+      { flex: '', self: 'self-auto', order: 'order-none', grow: false, shrink0: false },
+      { flex: '', self: 'self-auto', order: 'order-none', grow: false, shrink0: false },
+      { flex: '', self: 'self-auto', order: 'order-none', grow: false, shrink0: false }
+    ];
+
+    const cTarget = document.getElementById('c-target');
+    const cFlex = document.getElementById('c-flex');
+    const cSelf = document.getElementById('c-self');
+    const cOrder = document.getElementById('c-order');
+    const cGrow = document.getElementById('c-grow');
+    const cShrink = document.getElementById('c-shrink');
+
+    const container = document.getElementById('container');
+    const boxEls = document.querySelectorAll('.box');
+    const pCode = document.getElementById('p-code');
+    const cCode = document.getElementById('c-code');
+
+    function loadTargetData() {
+      const idx = parseInt(cTarget.value);
+      const data = boxesData[idx];
+      cFlex.value = data.flex;
+      cSelf.value = data.self;
+      cOrder.value = data.order;
+      cGrow.checked = data.grow;
+      cShrink.checked = data.shrink0;
+    }
+
+    function saveTargetData() {
+      const idx = parseInt(cTarget.value);
+      boxesData[idx] = {
+        flex: cFlex.value,
+        self: cSelf.value,
+        order: cOrder.value,
+        grow: cGrow.checked,
+        shrink0: cShrink.checked
+      };
+      update();
+    }
+
+    function update() {
+      // Parent
+      const pClasses = parentInputs.map(id => document.getElementById(id).value).join(' ');
+      container.className = `bg-slate-800 p-6 rounded-xl border-2 border-dashed border-sky-500/50 min-h-[360px] flex ${pClasses}`;
+      pCode.textContent = `flex ${pClasses}`;
+
+      // Children
+      cCode.innerHTML = '';
+      boxEls.forEach((el, idx) => {
+        const d = boxesData[idx];
+        const childClasses = [d.flex, d.self, d.order, d.grow ? 'grow' : '', d.shrink0 ? 'shrink-0' : '']
+          .filter(Boolean).join(' ');
+
+        el.className = `box p-4 rounded-lg shadow-lg font-bold text-white ${
+          idx === 0 ? 'bg-indigo-600' : idx === 1 ? 'bg-teal-600' : idx === 2 ? 'bg-amber-600' : 'bg-rose-600'
+        } ${childClasses}`;
+
+        const codeLine = document.createElement('div');
+        codeLine.className = idx === parseInt(cTarget.value) ? 'text-amber-300 font-bold' : 'text-slate-400';
+        codeLine.textContent = `<div class="${childClasses || '...' }">Box ${idx + 1}</div>`;
+        cCode.appendChild(codeLine);
+      });
+    }
+
+    parentInputs.forEach(id => document.getElementById(id).addEventListener('change', update));
+    cTarget.addEventListener('change', () => { loadTargetData(); update(); });
+    [cFlex, cSelf, cOrder, cGrow, cShrink].forEach(el => el.addEventListener('change', saveTargetData));
+
+    loadTargetData();
+    update();
+  </script>
+</body>
+</html>
